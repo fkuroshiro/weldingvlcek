@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #14171a;
+  --color-mill: #1e2327;
+  --color-plate: #e5e6e1;
+  --color-steel: #c4c7c1;
+  --color-straw: #e2b95c;
+  --color-temper: #5b7db8;
+  --font-display: var(--font-archivo), sans-serif;
+  --font-body: var(--font-serif), serif;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body { font-family: var(--font-body); line-height: 1.7; background: var(--color-plate); color: var(--color-ink); }
+
+.display { font-family: var(--font-display); font-stretch: 118%; font-weight: 800; letter-spacing: -0.03em; line-height: 0.98; }
+.sans { font-family: var(--font-display); }
+/* temper-colour stripe: the straw→blue tint steel takes when heated */
+.temper { height: 6px; background: linear-gradient(90deg, #e2b95c 0%, #c9803f 30%, #8a5a8c 62%, #5b7db8 100%); }
+.grain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .12; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.btn { transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), opacity .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(.98); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--color-straw); outline-offset: 3px; }
+.shot { transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+.tile:hover .shot { transform: scale(1.04); }
+.hero-in > * { animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; }
+.hero-in > :nth-child(2) { animation-delay: .12s }
+.hero-in > :nth-child(3) { animation-delay: .24s }
+.hero-in > :nth-child(4) { animation-delay: .36s }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+dialog::backdrop { background: rgba(10, 12, 14, .92); }
+.steps li { counter-increment: s; }
+.steps li::before { content: counter(s); }
