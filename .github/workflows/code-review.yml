@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize] # review on open and on every new push to the PR
 
 concurrency:
-  group: claude-review-${{ github.ref }}
+  group: code-review-${{ github.ref }}
   cancel-in-progress: true
 
 permissions: {}
