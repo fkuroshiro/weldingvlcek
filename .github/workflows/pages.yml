@@ -1,4 +1,6 @@
-name: Deploy to GitHub Pages
+# Client preview only (served under /<repo>, marked noindex). Production is a plain `npm run build`
+# without BASE_PATH, with the contents of out/ uploaded to the Webglobe web root.
+name: Deploy preview to GitHub Pages
 on:
   push: { branches: [main] }
   workflow_dispatch:

@@ -1,0 +1,28 @@
+name: Claude Review
+
+on:
+  pull_request:
+    types: [opened, synchronize] # review on open and on every new push to the PR
+
+concurrency:
+  group: claude-review-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  review:
+    if: >
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login == github.repository_owner
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+    uses: fkuroshiro/workflows/.github/workflows/code-review.yml@53a117ec8e4386e1e86a2611574920ae2fee8875
+    with:
+      model: claude-sonnet-5-5
+      effort: high
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
